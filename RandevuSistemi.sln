@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Randevuobject", "Randevuobj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandevuWebApi", "RandevuWebApi\RandevuWebApi.csproj", "{B20FD460-A263-4621-B756-118B5302A0DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandevuApp", "RandevuApp\RandevuApp.csproj", "{1B69D8C1-A758-4331-91A8-F7A1FD6AD63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandevuApp", "RandevuApp\RandevuApp.csproj", "{1B69D8C1-A758-4331-91A8-F7A1FD6AD63C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

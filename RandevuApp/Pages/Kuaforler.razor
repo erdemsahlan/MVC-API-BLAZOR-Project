@@ -9,19 +9,23 @@
             </MudItem>
             <MudItem xs="5"><span>Kuaför Adı</span></MudItem>
             <MudItem xs="5"> 
-                <MudTextField T="string" Value="duzenlenen?.Adi" Variant="Variant.Outlined" ></MudTextField>
+                <MudTextField T="string" @bind-Value="duzenlenen.Adi" Variant="Variant.Outlined" ></MudTextField>
             </MudItem>
             <MudItem xs="5"><span>Kuaför Adres</span></MudItem>
             <MudItem xs="5">
-                <MudTextField Typo="Typo.body1" Value="duzenlenen?.Adres" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Typo="Typo.body1" @bind-Value="duzenlenen.Adres" Variant="Variant.Outlined"></MudTextField>
             </MudItem>
             <MudItem xs="5"><span>Kuaför Telefon</span></MudItem>
             <MudItem xs="5">
-                <MudTextField Typo="Typo.body1" Value="duzenlenen?.Tel" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Typo="Typo.body1" @bind-Value="duzenlenen.Tel" Variant="Variant.Outlined"></MudTextField>
             </MudItem>
             <MudItem xs="5"><span>Kuaför Açıklama</span></MudItem>
             <MudItem xs="5">
-                <MudTextField Typo="Typo.body1" Value="duzenlenen?.Aciklama" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Typo="Typo.body1" @bind-Value="duzenlenen.Aciklama" Variant="Variant.Outlined"></MudTextField>
+            </MudItem>
+            <MudItem xs="10">
+                <MudButton OnClick="@(()=>KuaforDuzenle(duzenlenen))" Size="Size.Small" Color="Color.Success">Kaydet</MudButton>
+                <MudButton OnClick="@(()=>duzenlenen=new Kuafor())" Size="Size.Small" Color="Color.Error">İptal</MudButton>
             </MudItem>
         </MudGrid>
     </MudForm>
@@ -35,10 +39,12 @@
         <PropertyColumn Property="x => x.Tel" />
         <PropertyColumn Property="x => x.Aciklama" />
         <TemplateColumn>
-            <MudStack>
-                <MudButton Variant="Variant.Filled" Color="Color.Error">Sil</MudButton>
-                <MudButton Variant="Variant.Filled" Color="Color.Warning">Sil</MudButton>
-            </MudStack>
+            <CellTemplate>
+                <MudStack>
+                    <MudButton Variant="Variant.Filled" Color="Color.Error">Sil</MudButton>
+                    <MudButton OnClick="@(()=>KuaforSec(context.Item.Id))" Variant="Variant.Filled" Color="Color.Warning">Düzenle</MudButton>
+                 </MudStack>
+            </CellTemplate>
         </TemplateColumn>
     </Columns>
 </MudDataGrid>
@@ -46,12 +52,49 @@
 @code {
     List<Kuafor> KuaforListesi = new();
 
-    Kuafor duzenlenen = null;
-    protected override async Task OnInitializedAsync()
+    Kuafor duzenlenen = new Kuafor();
+
+    private void KuaforSec(int id)
     {
-        HttpClient httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("https://localhost:7259/KuaforListesi");
-        KuaforListesi = await httpClient.GetFromJsonAsync<List<Kuafor>>("");
+        duzenlenen = KuaforListesi.Where(x => x.Id == id).FirstOrDefault();
     }
 
+    private async Task KuaforDuzenle(Kuafor kuafor)
+    {
+        try
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://localhost:7259/KuaforDuzenle");
+            var sonuc = await httpClient.PostAsJsonAsync<Kuafor>("", duzenlenen);
+            if (sonuc.IsSuccessStatusCode)
+            {
+                duzenlenen= await sonuc.Content.ReadFromJsonAsync<Kuafor>();
+            }
+
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://localhost:7259/KuaforListesi");
+            KuaforListesi = await httpClient.GetFromJsonAsync<List<Kuafor>>("");
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+    }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Randevuobject;
 using RandevuSistemi.Services;
 
 namespace RandevuWebApi.Controllers
 {
+    [ApiController]
     public class KuaforController : ControllerBase
     {
         private readonly IKuaforServisi kuaforServisi;
@@ -23,5 +25,16 @@ namespace RandevuWebApi.Controllers
             kuaforServisi.KuaforSil(Id);
             return Ok();
         }
+
+        [HttpPost("KuaforDuzenle")]
+        public IActionResult KuaforDuzenle(Kuafor duzenlenen)
+        {
+            Kuafor kaydedilen=kuaforServisi.KuaforDuzenle(duzenlenen);
+            return Ok(kaydedilen);
+        }
+
+  
+
+
     }
 }

@@ -1,0 +1,27 @@
+﻿@page "/Randevular"
+@inject IDialogService modalService
+<h3>Randevular</h3>
+
+
+<MudCalendar Items="randevular"EnableDragItems="true" EnableResizeItems="true" ItemChanged="RandevuDeğisti"></MudCalendar>
+
+@code {
+    List<CalendarItem> randevular = new();
+
+    protected override void OnInitialized()
+    {
+        CalendarItem randevu = new()
+            {
+                Start = DateTime.Now,
+                End = DateTime.Now.AddHours(2),
+                Text = "Saç Traşı Randevusu"
+            };
+        randevular.Add(randevu);
+    }
+
+    private void RandevuDeğisti(CalendarItem e)
+    {
+        modalService.ShowMessageBox("Taşınan Tarih", $"Tarih:{e.Start}-{e.End}");
+    }
+ }
+

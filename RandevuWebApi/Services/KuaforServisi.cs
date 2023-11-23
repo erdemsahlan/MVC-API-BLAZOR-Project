@@ -30,6 +30,7 @@ namespace RandevuSistemi.Services
             return gonderilen;
         }
 
+        
         public Kuafor KuaforDuzenle(Kuafor duzenlenen)
         {
             var mevcutKuafor = db.Kuaforler.Where(x => x.Id == duzenlenen.Id).FirstOrDefault();
