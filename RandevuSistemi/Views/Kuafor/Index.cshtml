@@ -1,0 +1,97 @@
+﻿
+@model Kuafor
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8 d-flex justify-content-center">
+
+            @if (Model.Id==0)
+            {
+                <h4>Yeni</h4>
+            }
+            else
+            {
+                <h4>Kuaför Id: @Model.Id</h4>
+            }
+
+           @using (Html.BeginForm("KuaforKaydet","Kuafor", FormMethod.Post))
+            {
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <table>
+                    <tr>
+                        <td>Adı :</td> <td><input type="text" name="Adi" value="@Model.Adi" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Adres :</td>
+                        <td><input type="text" name="Adres" value="@Model.Adres" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Tel :</td>
+                        <td><input type="text" name="Tel" value="@Model.Tel" class="form-control" /></td>
+                    </tr>
+                    <tr>
+                        <td>Aciklama :</td>
+                        <td><input type="text" name="Aciklama" value="@Model.Aciklama" class="form-control" /></td>
+                    </tr>
+                </table>
+
+                <button class="btn btn-primary" type="submit">Gönder</button>
+            }
+
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+
+
+    <p>
+        <a asp-action="Index" class="btn btn-primary">Create New</a>
+    </p>
+    <table class="table table-striped table-bordered" id="randevuTablolari">
+        <thead>
+            <tr>
+                <th>
+                   Adı
+                </th>
+                <th>
+                    Adres
+                </th>
+                <th>
+                    Tel
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Kuafor item in ViewBag.KuaforListe)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adres)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Aciklama)
+                    </td>
+                    <td>
+                        <a href="Kuafor/Duzenle?Id=@item.Id"  class="btn btn-warning">Düzenle</a>
+                        <a href="Kuafor/Sil?Id=@item.Id"  class="btn btn-danger silButon">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

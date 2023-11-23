@@ -1,0 +1,41 @@
+﻿@inject IAuthorizationService AuthorizationService
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Rol Yönetimi";
+}
+
+
+
+@model List<IdentityRole>
+
+
+
+<a asp-action="YeniRol" class="btn btn-primary">Yeni Rol Ekle</a>
+<br />
+<br />
+<table class="table table-striped table-bordered " id="randevuTablolari">
+    <thead>
+        <tr><td>Rol Adı</td><td>İşlem</td></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a href="Yonetim/RolSil?RolAdi=@item.Name" name="@item.Name" class="btn btn-danger silButon">Sil</a>
+                    <a href="Yonetim/RolDuzenle?RolAdi=@item.Name" class="btn btn-warning">Duzenle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<form action="Yonetim/HarfGecenRolleriSil" method="get">
+    İçinde Bulunan Harf : <input type="text" name="harf" />
+    <button type="submit">Bulk Delete</button>
+</form>
+

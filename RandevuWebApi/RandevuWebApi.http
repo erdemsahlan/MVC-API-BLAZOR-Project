@@ -1,0 +1,23 @@
+﻿@RandevuWebApi_HostAddress = https://localhost:7259
+
+GET {{RandevuWebApi_HostAddress}}/KuaforListesi
+
+###
+
+DELETE {{RandevuWebApi_HostAddress}}/KuaforSil?Id=7
+
+###
+
+POST {{RandevuWebApi_HostAddress}}/api/musteris
+Content-Type: application/json
+
+{
+  "id": 0,
+  "adi": "Gürkan",
+  "soyadi": "Güney",
+  "gsm": "5425662281",
+  "eposta": "gurkan_guney@hotmail.com",
+  "aciklama": "Test"
+}
+
+###

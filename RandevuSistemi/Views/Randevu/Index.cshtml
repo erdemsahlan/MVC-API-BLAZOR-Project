@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Randevuobject.Randevu>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CalisanKisi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Musteri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAktif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsTamamlandi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TarihSaat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aciklama)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalisanKisi.Adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Musteri.Adi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAktif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsTamamlandi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TarihSaat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aciklama)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

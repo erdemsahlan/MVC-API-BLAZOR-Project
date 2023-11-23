@@ -1,0 +1,59 @@
+﻿@model Randevuobject.CalismaPlani
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CalismaPlani</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="PlanAdi" class="control-label"></label>
+                <input asp-for="PlanAdi" class="form-control" />
+                <span asp-validation-for="PlanAdi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MusteriBasinaZaman" class="control-label"></label>
+                <input asp-for="MusteriBasinaZaman" class="form-control" />
+                <span asp-validation-for="MusteriBasinaZaman" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsHahtasonuCalisma" /> @Html.DisplayNameFor(model => model.IsHahtasonuCalisma)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="MesaiBaslamaSaati" class="control-label"></label>
+                <input asp-for="MesaiBaslamaSaati" class="form-control" />
+                <span asp-validation-for="MesaiBaslamaSaati" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MesaiBitisSaati" class="control-label"></label>
+                <input asp-for="MesaiBitisSaati" class="form-control" />
+                <span asp-validation-for="MesaiBitisSaati" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aciklama" class="control-label"></label>
+                <input asp-for="Aciklama" class="form-control" />
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

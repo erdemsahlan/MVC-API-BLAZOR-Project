@@ -1,0 +1,57 @@
+﻿@page "/Kuaforler"
+<h3>Kuaforler</h3>
+
+<MudPaper Elevation="5" Class="p-2" >
+    <MudForm>
+        <MudGrid>
+            <MudItem xs="10">
+                <MudText>Kuaför Id:@(duzenlenen?.Id==0?"Yeni":duzenlenen?.Id)</MudText>
+            </MudItem>
+            <MudItem xs="5"><span>Kuaför Adı</span></MudItem>
+            <MudItem xs="5"> 
+                <MudTextField T="string" Value="duzenlenen?.Adi" Variant="Variant.Outlined" ></MudTextField>
+            </MudItem>
+            <MudItem xs="5"><span>Kuaför Adres</span></MudItem>
+            <MudItem xs="5">
+                <MudTextField Typo="Typo.body1" Value="duzenlenen?.Adres" Variant="Variant.Outlined"></MudTextField>
+            </MudItem>
+            <MudItem xs="5"><span>Kuaför Telefon</span></MudItem>
+            <MudItem xs="5">
+                <MudTextField Typo="Typo.body1" Value="duzenlenen?.Tel" Variant="Variant.Outlined"></MudTextField>
+            </MudItem>
+            <MudItem xs="5"><span>Kuaför Açıklama</span></MudItem>
+            <MudItem xs="5">
+                <MudTextField Typo="Typo.body1" Value="duzenlenen?.Aciklama" Variant="Variant.Outlined"></MudTextField>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+</MudPaper>
+
+<MudDataGrid Items="@KuaforListesi">
+    <Columns>
+        <PropertyColumn Property="x => x.Id" Title="Id" />
+        <PropertyColumn Property="x => x.Adi" />
+        <PropertyColumn Property="x => x.Adres" />
+        <PropertyColumn Property="x => x.Tel" />
+        <PropertyColumn Property="x => x.Aciklama" />
+        <TemplateColumn>
+            <MudStack>
+                <MudButton Variant="Variant.Filled" Color="Color.Error">Sil</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Warning">Sil</MudButton>
+            </MudStack>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+@code {
+    List<Kuafor> KuaforListesi = new();
+
+    Kuafor duzenlenen = null;
+    protected override async Task OnInitializedAsync()
+    {
+        HttpClient httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("https://localhost:7259/KuaforListesi");
+        KuaforListesi = await httpClient.GetFromJsonAsync<List<Kuafor>>("");
+    }
+
+}
